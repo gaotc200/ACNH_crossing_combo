@@ -4,6 +4,7 @@ Given all genotypes you have, list all crossing output from all possible pairs
 ## Usage:  
 In line 10, edit the **ftype**="tulips" to the type of flower  
 In line 11, edit the **haved**=[] to all the flower genotypes you have (See below)  
+Then run `python ACNH_flower_crossing_combo.py`
 
 Flower genotypes credit to https://docs.google.com/spreadsheets/d/11pRCX8G0xGizSYWgVhoUSu7pE-MV7AOprBcgSY1whB4/htmlview?usp=sharing#  
 However, make the flowing changes for input:  

@@ -7,9 +7,9 @@ import pandas as pd
 from itertools import combinations_with_replacement
 
 # user input
-ftype = "tulips"
-haved = ["RRyyWw", "RRyyww", "RrYyWw", "RrYyww", "RryyWW", "RryyWw", "rrYYww", "rryyWw"]
-
+clear_output = True
+ftype = "roses"
+haved = ["RRyyWWSs", "rrYYWWss", "rryyWwss"]
 
 # hard coding colors
 if ftype == "tulips":
@@ -107,4 +107,26 @@ comb = combinations_with_replacement(haved, 2)
 results = []
 for pair in comb:
     results.append(crossing(pair[0], pair[1]))
-pd.concat(results).to_csv("./%s.tsv" % ftype, sep="\t", header=False, index=False)
+
+# sort results
+# all genotype not haved will be in the front
+# the color with less genotypes will be in the front
+final_combo = pd.concat(results).iloc[:,[0,1]]
+
+sorted_results = []
+for df_result in results:
+    result = df_result.T.iloc[2:,:].copy()
+    result.columns = ["0", "1"]
+    result["haved"] = result["0"].isin(haved)
+    result = result.assign(freq=result.groupby('1')['1'].transform('count')).sort_values(by=["freq", "1", "haved"],ascending=[True, True, True])    
+    result = result.iloc[:,[0,1]].T
+    result.columns = range(result.shape[1])
+    sorted_results.append(result)
+final = pd.concat(sorted_results)
+
+if clear_output:
+    final[final.isin(haved)] = ""
+
+df = pd.concat([final_combo.reset_index(drop=True).T, final.reset_index(drop=True).T]).T
+
+df.to_csv("./%s.tsv" % ftype, sep="\t", header=False, index=False)

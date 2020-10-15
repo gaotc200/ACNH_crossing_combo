@@ -7,7 +7,12 @@ import pandas as pd
 from itertools import combinations_with_replacement
 
 ftype = "tulips"
-had = ["rryyWw", "rrYYww", "RRyyWw"]
+had = ["rryyWw", "rrYYww", "RRyyWw",
+       "RRyyww", "RrYyWw", "RrYyww", "RryyWW", "RryyWw", "Rryyww",
+       "rrYyww", "RRYYww", "rryyww", "RRyyWW",
+       "RrYYww", "RRYyww", "RRYyWw"]
+
+test_cross = ["RRYYww", "RRYYWw"]
 
 class flower_crossing():
     def __init__(self, ftype):
@@ -189,3 +194,46 @@ with open("./ACNH_crossing_result.html", "w", encoding='utf8') as htmlf:
     </div>
 </body>
 </html>""")
+
+if len(test_cross) > 0:
+    with open("./ACNH_test_cross.html", "w", encoding='utf8') as htmlf:
+        htmlf.write("""<!DOCTYPE html>
+    <html>
+    <head>
+        <title>ACNH</title>
+        <style>
+            table, th, td {
+                padding: 5px;
+            }
+            table {
+                border-spacing: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="text-align:center">
+            <table style="margin:auto">
+                <tr>
+                    <th>P1</th>
+                    <th>&#215</th>
+                    <th>P2</th>
+                    <th>=</th>
+                    <th>F1</th>
+                </tr>
+    """)
+
+        fl = flower_crossing(ftype)
+        for p1gene in had:
+            for p2gene in test_cross:
+                    crossing_outcome_genotype = np.array(fl.crossing(p1gene, p2gene))
+                    crossing_outcome_color = np.array([fl.gs2p[g] for g in crossing_outcome_genotype])
+                    htmlf.write("""            <tr>
+                    <td style="background-color: {p1color}">{p1gene}</td>
+                    <td>&#215</td>
+                    <td style="background-color: {p2color}">{p2gene}</td>
+                    <td>=</td>""".format(p1gene=p1gene, p2gene=p2gene, p1color=color_dict[fl.gs2p[p1gene]], p2color=color_dict[fl.gs2p[p2gene]]))
+
+                    for ii in list(range(len(crossing_outcome_genotype))):
+                        htmlf.write("""                <td style="background-color: {f1color};">{f1gene}</td>""".format(f1gene=crossing_outcome_genotype[ii], f1color=color_dict[crossing_outcome_color[ii]]))
+                    htmlf.write("            </tr>")
+            htmlf.write("""            <tr><td><br></td></tr">""")

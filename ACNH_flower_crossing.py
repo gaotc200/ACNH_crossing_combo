@@ -11,7 +11,6 @@ had = ["rryyWw", "rrYYww", "RRyyWw",
        "RRyyww", "RrYyWw", "RrYyww", "RryyWW", "RryyWw", "Rryyww",
        "rrYyww", "RRYYww", "rryyww", "RRyyWW",
        "RrYYww", "RRYyww", "RRYyWw"]
-
 test_cross = ["RRYYww", "RRYYWw"]
 
 class flower_crossing():
@@ -120,7 +119,7 @@ color_dict = {
     "Orange": "#ff8c21"
 }
 
-with open("./ACNH_crossing_result.html", "w", encoding='utf8') as htmlf:
+with open("./ACNH_result_cross.html", "w", encoding='utf8') as htmlf:
     htmlf.write("""<!DOCTYPE html>
 <html>
 <head>
@@ -196,7 +195,7 @@ with open("./ACNH_crossing_result.html", "w", encoding='utf8') as htmlf:
 </html>""")
 
 if len(test_cross) > 0:
-    with open("./ACNH_test_cross.html", "w", encoding='utf8') as htmlf:
+    with open("./ACNH_result_test_cross.html", "w", encoding='utf8') as htmlf:
         htmlf.write("""<!DOCTYPE html>
     <html>
     <head>

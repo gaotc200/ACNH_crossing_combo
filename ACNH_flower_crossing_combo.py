@@ -163,7 +163,7 @@ with open("./ACNH_crossing_result.html", "w", encoding='utf8') as htmlf:
                 <td style="background-color: {p1color}">{p1gene}</td>
                 <td>&#215</td>
                 <td style="background-color: {p2color}">{p2gene}</td>
-                <td>=</td>""".format(p1gene=p1gene, p2gene=p2gene, p1color=color_dict[fl.gs2p[p1gene]], p2color=color_dict[fl.gs2p[p1gene]]))
+                <td>=</td>""".format(p1gene=p1gene, p2gene=p2gene, p1color=color_dict[fl.gs2p[p1gene]], p2color=color_dict[fl.gs2p[p2gene]]))
 
         for ii in list(range(len(crossing_outcome_genotype))):
             if not old_geno[ii] and color_count[ii] == 1:

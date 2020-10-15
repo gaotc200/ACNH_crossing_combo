@@ -14,3 +14,5 @@ Basically, you should have RYW for every flower excpet roses.
 
 ## Output:  
 The script will generate a html file in the same directory named "ACNH_crossing_result.html".  
+Crossing pairs with new (not in your input "had" list) identifiable offspring (the one with a color that could only originated from one possible genotype) will be listed on top. The new identifiable offspring will be marked with a border in the table.  
+Notice this is for getting new genotype, not limited to only new color.

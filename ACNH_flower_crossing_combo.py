@@ -152,7 +152,7 @@ with open("./ACNH_crossing_result.html", "w", encoding='utf8') as htmlf:
         u, ind, c = np.unique(crossing_outcome_color, return_counts=True, return_inverse=True)
         color_count = c[ind]
         old_geno = np.isin(crossing_outcome_genotype, had)
-        output_order = np.lexsort((color_count, old_geno))
+        output_order = np.lexsort((old_geno, crossing_outcome_color, color_count))
 
         crossing_outcome_genotype = crossing_outcome_genotype[output_order]
         crossing_outcome_color = crossing_outcome_color[output_order]
@@ -172,10 +172,14 @@ with open("./ACNH_crossing_result.html", "w", encoding='utf8') as htmlf:
                 comb_result.append("""                <td style="background-color: {f1color};">{f1gene}</td>""".format(f1gene=crossing_outcome_genotype[ii], f1color=color_dict[crossing_outcome_color[ii]]))
         comb_result.append("            </tr>")
 
-        if min(color_count) == 1 and min(old_geno.astype(int)) == 0:
-            str1.append("\n".join(comb_result))
-        else:
-            str2.append("\n".join(comb_result))
+
+        out_str = str2 #default go to 2nd block
+        for ii in range(len(color_count)):
+            if color_count[ii] == 1 and not old_geno[ii]:
+                out_str = str1 # if the comb have identifiable offspring, output to block 1st
+                break
+        
+        out_str.append("\n".join(comb_result))
 
     htmlf.write("\n".join(str1))
     htmlf.write("\n".join(str2))
